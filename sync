@@ -3,11 +3,21 @@
 mkdir -p /tmp/rom # Where to sync source
 cd /tmp/rom
 
-# Repo init command, that -device,-mips,-darwin,-notdefault part will save you more time and storage to sync, add more according to your rom and choice. Optimization is welcomed! Let's make it quit, and with depth=1 so that no unnecessary things.
-repo init -q --no-repo-verify --depth=1 -u https://github.com/Project-Fluid/manifest.git -b fluid-11 -b 11.x -g default,-device,-mips,-darwin,-notdefault
-
-# Clone local manifest! So that no need to manually git clone repos or change hals, you can use normal git clone or rm and re clone, they will cost little more time, and you may get timeout! Let's make it quit and depth=1 too.
-git clone https://github.com/adrian-8901/.repo-local_manifest.git --depth 1  .repo/local_manifests
-
-# Sync source with -q, no need unnecessary messages, you can remove -q if want! try with -j30 first, if fails, it will try again with -j8
+repo init -q --no-repo-verify --depth=1 -u https://adrian-8901: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@github.com/CrystalOS-Temp/manifest -b A12_Test -g default,-device,-mips,-darwin,-notdefault
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j 30 || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j 8
+git clone https://adrian-8901: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@github.com/CrystalOS-Devices/device_xiaomi_umi.git -b staging/1.0-Amethyst device/xiaomi/umi &&
+git clone https://adrian-8901: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@github.com/CrystalOS-Devices/vendor_xiaomi_umi.git vendor/xiaomi/umi &&
+git clone https://adrian-8901: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@github.com/chaptsand/kernel_xiaomi_sm8250.git kernel/xiaomi/sm8250 &&
+rm -rf device/crystal/sepolicy &&
+git clone https://adrian-8901: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@github.com/adrian-8901/device_crystal.git device/crystal/sepolicy &&
+rm -rf vendor/crystal &&
+rm -rf frameworks/base && 
+rm -rf packages/apps/Mine &&
+rm -rf packages/modules/Wifi &&
+rm -rf packages/apps/Settings &&
+git clone https://adrian-8901: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@github.com/adrian-8901/vendor_crystal-1.git vendor/crystal &&
+git clone https://adrian-8901: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@github.com/CrystalOS-Temp/frameworks_base.git -b p4042-applock-wip frameworks/base &&
+git clone https://adrian-8901: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@github.com/CrystalOS-Temp/packages_apps_Mine.git -b p4042-applock-wip packages/apps/Mine &&
+git clone https://adrian-8901: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@github.com/CrystalOS-Temp/packages_modules_Wifi.git packages/modules/Wifi &&
+git clone https://adrian-8901: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@github.com/CrystalOS-Temp/packages_apps_Settings.git -b A12_Test packages/apps/Settings &&
+rm -rf device/generic/opengl-transport
